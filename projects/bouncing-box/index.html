@@ -58,7 +58,9 @@
 			//////////////////////////////////////////////////////////////////
 			
 			// TODO 2 - Variable declarations 
-			
+            var positionX = 0;
+            var points = 0;
+            var speed = 10;
 
 			
 			/* 
@@ -67,19 +69,39 @@
 			turn it around! 
 			*/
 			function update() {
-				
-
+                positionX = positionX + speed;
+				moveBoxTo(positionX);
+                if(positionX > boardWidth){
+                    speed = speed * -1;
+                }
+                if(positionX < 0){
+                    speed = speed * -1;
+                }
+                if(clicks === 3){
+                    extraSpeed = extraSpeed + 1;
+                    clicks = 0;
+                }
 			};
 
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
 			it should increase the points total, increase the speed, and move the box to
 			the left side of the screen.
-			*/
+            */
+           var clicks = 0
+           var extraSpeed = 0
+           /* these two variables above are for the extra speed every 3 clicks challenge */
 			function handleBoxClick() {
-				
-
-
+                positionX = 0;
+                points = points + 1;
+                clicks = clicks + 1;
+                changeBoxText(points);
+                if(speed > 0){
+                    speed = speed + 3 + extraSpeed;
+                }
+                else if(speed < 0){
+                    speed = speed - 3 - extraSpeed;
+                }
 			};
 		})();
 	</script>
