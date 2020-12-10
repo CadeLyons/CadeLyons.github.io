@@ -27,7 +27,7 @@ var background = function (window) {
         
         // ANIMATION VARIABLES HERE:
         
-     
+
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
         function render() {
@@ -36,7 +36,7 @@ var background = function (window) {
             // TODO: 2 - Part 2
             // this fills the background with a obnoxious yellow
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth,canvasHeight,'yellow');
+            var backgroundFill = draw.rect(canvasWidth,canvasHeight, "#004db3");
             background.addChild(backgroundFill);
             
             // TODO: 3 - Add a moon and starfield
