@@ -1,0 +1,62 @@
+User Story / Gameplay
+Describe the gameplay
+Two poles controlled by a different player bounce a box or ball and attempt to bounce it past the other player. The left pole attempts to get the ball/box to the right side of the screen,
+while the right pole attempts to get the ball/box to the left side of the screen.
+
+
+What are the conditions when the game begins?
+The game begins once the ball/box begins moving, and both players must be ready. So I think it might be a good idea to make a button that starts it. In walker there was a function called
+runProgram() if I find a way to make it be turned off and on with a button I could create a pause button and by default have it off until someone clicks the button at the start.
+
+
+Does the game have an end? If so, what are the conditions for when it ends?
+The game ends when someone reaches a certain score, whoever reaches it first wins.
+
+
+What ifs will there be?
+if ball is touching paddle then it shall bounce.
+if var = 1 run Program else do not run program.
+if ball reaches left side give right player 1 point and reset ball.
+if ball reaches right side give left player 1 point and reset ball.
+if right player gets 5 points, end game and say they win.
+else if left player gets 5 points, end game and say they win. (may be possible to shorten the winner if statements into 1 using ids or something.)
+if W or A is being pushed down move left paddle up or down
+if W or A is no longer being pushed down stop moving.
+if Up arrow or Down arrow is being pushed down move right paddle up or down.
+if Up arrow or Down arrow is no longer being pushed down stop moving.
+if paddle is touching wall teleport it back a little. (or maybe just disable the ability to move in that direction.).
+if ball touches wall make speedY negative (speedY * -1).
+
+
+Visual Game Components:
+What are the visual game components? For example, in Bouncing Box, the game components were the board and the box.
+Board, Scoreboard, ball, and paddles.
+
+Which will be static? (the board)
+The board and the scoreboard, they will not move.
+
+Which will be animated? (the box)
+The ball and paddles, they will move.
+
+What data will you need to manage each game component? For example, in Bouncing Box, the data values were positionX, speedX, and points.
+positionX, positionY (.x and .y), speedX, speedY, and id for the paddles and the ball.
+score1, score2, and position for the scoreboard.
+
+Events / Logic
+What events will occur in this game? (timer events, keyboard events, clicking events?)
+lots of keyboard events, whenever someone presses A, S, Up arrow, Down arrow, or escape key.
+there could be a timer that tells the players when the ball starts moving.
+
+How do those events affect the data of the program?
+When certain keyboard buttons are pressed it will move the one of the paddles up or down. There will also be a keyboard button that pauses the game.
+The timer stops the ball from moving until the timer ends, then the ball is assigned a somewhat random value to start moving.
+
+For each "event", write out the high-level logic of what will happen. It is better (and tricky) to be as specific as you can while remaining high-level!
+All the movement keys (KEY_A, KEY_W, KEY_UP, KEY_DOWN) will work the same so I'll just use one as an example. if KEY_A is pushed down, then the left paddle will move down, once it is released
+a function will tell the paddle to stop moving down. When KEY_A is pressed down speed_Y === a negative number, when KEY_A is released speed_Y === 0.
+
+If KEY_ESC is clicked then the variable pause = 1, and the if statement in runProgram() will cause the program to stop temporarily.
+
+For the timer I will try to make a function that displays 3 2 1 before the ball starts moving, and setTimeout() will be used for this. 
+What I was thinking to achieve that was to have 4 different setTimeout functions, one for the 3, then that triggers the start of one for the 2, trigger the start of the timer for 1,
+then trigger the timer to actually start. setTimeout(trigger2, 50), trigger2 { setTimeout(trigger1, 50)} trigger1 {setTimeout(triggerBall, 50)}.
