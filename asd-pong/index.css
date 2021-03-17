@@ -9,15 +9,20 @@ body {
   border: 1px solid white;
   background-color: black;
   position: relative;
+  text-align: center;
+  color : green;
+  font-size : 300%;
 }
 
-#gameItem {
+#box {
   background-color: teal;
   width: 50px;
   height: 50px;
   position: absolute;
   top: 195px;
   left: 195px;
+  text-align: center;
+  color : white;
 }
 #paddleL {
     background-color: aqua;
@@ -26,6 +31,7 @@ body {
     position: absolute;
     left:50px;
     top: 170px;
+    border-radius:15px;
 }
 #paddleR {
     background-color: red;
@@ -34,26 +40,27 @@ body {
     position: absolute;
     left: 380px;
     top: 170px;
+    border-radius:15px;
 }
 #scoreL {
     width: 70px;
 	height: 70px;
 	background-color: aqua;
-	font-size: 300%;
 	text-align: center;
 	position: absolute;
 	top: 441px;
     left: 150px; 
     border: 1px solid white;
+    color : black;
 }
 #scoreR {
     width: 70px;
 	height: 70px;
 	background-color: red;
-	font-size: 300%;
 	text-align: center;
 	position: absolute;
 	top: 441px;
     left: 220px; 
     border: 1px solid white;
+    color : black;
 }
