@@ -1,0 +1,118 @@
+
+body {
+  background-color: darkgreen;
+}
+
+#board {
+  width: 440px;
+  height: 440px;
+  border: 1px solid white;
+  background-color: black;
+  position: relative;
+  text-align: center;
+  color : green;
+  font-size : 300%;
+  left: 150px;
+  top: 150px;
+}
+
+#snakeHead {
+  background-color: white;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 220px;
+  top: 200px;  
+}
+#apple {
+  /*background-color: red;*/
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  left: 40px;
+  top: 100px;  
+}
+#score {
+    width:70px;
+    height:10px;
+    position: absolute;
+    color: white;
+    font-size : 40%;
+}
+.snakeBody {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    background-color: greenyellow;
+}
+#easy {
+    position: absolute;
+    top: 110px;
+    left: 190px;
+    width: 60px;
+}
+#lunatic {
+    position: absolute;
+    top: 330px;
+    left: 170px;
+    width: 100px;
+}
+#choose {
+    position: absolute;
+    top: 150px;
+    left: 155px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 70%;
+}
+#easytext {
+    position: absolute;
+    width: 60px;
+    height: 10px;
+    font-size: 40%;
+    top: 65px;
+    left: 190px;
+    color: red;
+}
+#lunatictext {
+    position: absolute;
+    width: 100px;
+    height: 10px;
+    font-size: 30%;
+    top: 350px;
+    left: 170px;
+    color: red;
+}
+.bullet1 {
+    background-color : aqua;
+    width: 20px;
+    height: 60px;
+    position: absolute;
+}
+.bullet2 {
+    background-color : yellow;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+.badapplebullet2 {
+    background-color : white;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+}
+#badapplebutton {
+    position: absolute;
+    top: 440px;
+    left: 0px;
+}
+#badappletext {
+    position: absolute;
+    top: 400px;
+    left: 0px;
+    color: red;
+    height: 20px;
+    width: 100px;
+    font-size: 30%;
+}
