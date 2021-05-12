@@ -4,11 +4,11 @@ $(document).ready(function(){
     const $display = $('#display');
 
     // TODO: Call your apply function(s) here
-    applyFilterNoBackground(reddify);
-    applyFilter(increaseGreenByBlue);
-    applyFilterNoBackground(decreaseBlue);
-    //applyFilterNoBackground(blackAndWhite);
-
+    //applyFilterNoBackground(reddify);
+    //applyFilter(increaseGreenByBlue);
+    //applyFilterNoBackground(decreaseBlue);
+    applyFilterNoBackground(blackAndWhite);
+    applySmudge(smudge)
 
 
     render($display, image);
@@ -30,6 +30,8 @@ function applyFilter(filterFunction) {
         }
     }
 }
+
+// TODO: Create the applyFilterNoBackground function
 function applyFilterNoBackground(filterFunction) {
     var backgroundColor = image[0][0]; //grabs the top left corner of the image and assumes that is the background color.
     for (var i = 0; i < image.length; i++) {
@@ -44,9 +46,6 @@ function applyFilterNoBackground(filterFunction) {
         }
     }
 }
-
-// TODO: Create the applyFilterNoBackground function
-
 
 // TODO: Create filter functions
 
@@ -82,7 +81,31 @@ function blackAndWhite(array) {
 }
 
 // CHALLENGE code goes below here
-
-
-//To be deleted, theory for todo 5, grab the top left pixel, very first part of the image array, then store it as a variable maybe use stringtoarray function
-//then compare that variable to whatever i am trying to apply a filter to, something like if(topleft === currentsquare) { do not run function} else { run function}
+function applySmudge(filterFunction) {
+    var backgroundColor = image[0][0]; //grabs the top left corner of the image and assumes that is the background color.
+    for (var i = 0; i < image.length; i++) {
+        for (var y = 1; y < image[i].length - 1; y++) {
+            var rgbString = image[i][y]; //grabs a string from the 2D array.
+            var rgbString2 = image[i][y + 1]; //grabs a second string from the 2D array.
+            if (rgbString !== backgroundColor && rgbString2 !== backgroundColor) {
+                var rgbNumbers = rgbStringToArray(rgbString); //"red,green,blue" is what the strings are now
+                var rgbNumbers2 = rgbStringToArray(rgbString2);
+                filterFunction(rgbNumbers, rgbNumbers2); //the filter function called smudges the two values.
+                var rgbStringNew = rgbNumbers; //stores the new strings
+                var rgbStringNew2 = rgbNumbers2;
+                image[i][y] = rgbArrayToString(rgbStringNew); //updates the 2D array with the new values
+                image[i][y+1] = rgbArrayToString(rgbStringNew2);
+            }
+        }
+    }
+}
+function smudge(pixel1, pixel2) {
+    //The variables below add the rgb values of pixel1 and pixel2 together.
+    redTotal = pixel1[RED] + pixel2[RED]
+    blueTotal = pixel1[BLUE] + pixel2[BLUE]
+    greenTotal = pixel1[GREEN] + pixel2[GREEN]
+    //Code below makes the rgb values of pixel2 half of the variables above making the picture look smudged. Kinda like someone dragged their finger to the right.
+    pixel2[RED] = redTotal / 2;
+    pixel2[BLUE] = blueTotal / 2;
+    pixel2[GREEN] = greenTotal / 2;
+}
