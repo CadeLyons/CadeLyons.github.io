@@ -71,6 +71,7 @@ function runProgram(){
         updateGameItems();
         border();
         stopCriminalScum = 0
+        badAppleBulletColorHandler()
     }
     //for lunatic/snake project mode, calls bullet-related functions that need to be constantly updated, doesn't get called if snake project difficulty isn't selected.
     if (lunatic === 1) {
@@ -79,15 +80,6 @@ function runProgram(){
         }
         removeStrayBullets();
         handleSnakeBulletCollide();
-    }
-    //below is for bad apple mode, it changes the bullets colors because i can't assign them a different class without messing up the bullet shapes themselves.
-    if (badapple === 1) {
-        $(".bullet2").css("background-color","white");
-        $(".bullet1").css("background-color","white");
-    }
-    else if (badapple === 2) {
-        $(".bullet2").css("background-color","black");
-        $(".bullet1").css("background-color","black");
     }
   }
   
@@ -174,8 +166,7 @@ function runProgram(){
         snakeHead.score += 1;
         createNewSnake();
         moveApple();
-        
-        badAppleColorHandler()
+        badAppleColorHandler();
       }
       //the code below checks if the snake head touches the snake body. 
       for (var i = 2; i < snakeArray.length; i++) {
@@ -260,7 +251,18 @@ function runProgram(){
             badapple = 1
         }
     }
-      //function below handles the player clicking the bad apple mode button.
+    //below is for bad apple mode, it changes the bullets colors because i can't assign them a different class without messing up the bullet shapes themselves.
+    function badAppleBulletColorHandler() {
+        if (badapple === 1) {
+            $(".bullet2").css("background-color","white");
+            $(".bullet1").css("background-color","white");
+        }
+        else if (badapple === 2) {
+            $(".bullet2").css("background-color","black");
+            $(".bullet1").css("background-color","black");
+        }
+    }
+    //function below handles the player clicking the bad apple mode button.
     function badAppleHandler() {
         if (badapple === 0) {
             $('#badappletext').text('Bad Apple Mode: ON') //can it play bad apple? yes but actually no, but it can change colors
@@ -270,7 +272,7 @@ function runProgram(){
             $('#badappletext').text('Bad Apple Mode: OFF') //can it run doom? no
             badapple = 0
       }
-  }
+    }
     //This function handles the title screen, it works with pauser to turn it off and on.
     function titleScreen() {
         $(".remove").hide()
@@ -284,18 +286,18 @@ function runProgram(){
         lunatic = 1;
         moveApple();
         randomPatternInterval = setInterval(randomPattern, 20000);   //This would be in one time setup, but i didn't want bullets flying at you if you just sat on the title screen.
-        //Code below is for presentation, don't need to be waiting 15 seconds for a random bullet pattern that I may of already shown.
+        //Code below is for presentation, don't need to be waiting 20 seconds for a random bullet pattern that I may of already shown.
         
         // bulletpattern1 = setInterval(bulletwave1, 1500);
         
         //  bulletpattern2 = setInterval(bulletwave2, 4000);
         
-        //  bulletpattern3 = setInterval(bulletwave3, 5000);
+        // bulletpattern3 = setInterval(bulletwave3, 5000);
 
           bulletwave4();
         
         setTimeout(clearBulletIntervals, 15000);
-  }
+    }
     //below is code for "lunatic" difficulty and a little extra at the bottom.
     //Gets pretty messy I wasn't sure if creating one factory function type thing would work for 4 different bullet patterns so instead I made seperate ones for each bullet type.
     //Below are the 2 functions for bullet type 1, Long blue lines that go straight down
@@ -401,10 +403,13 @@ function runProgram(){
     function bulletwave4() {
         bulletwave4helper2(220);
         setTimeout(bulletwave4helper, 3000, 0);
+        
         setTimeout(bulletwave4helper2, 3001, 110);
         setTimeout(bulletwave4helper, 6000, 0);
+        
         setTimeout(bulletwave4helper2, 6001, 330);
         setTimeout(bulletwave4helper, 9000, 0);
+        
         setTimeout(bulletwave4helper2, 9001, 110); //it would appear the timer is over 9000
         setTimeout(bulletwave4helper2, 9001, 330);
         setTimeout(bulletwave4helper, 12000, 0);
