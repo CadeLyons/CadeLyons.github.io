@@ -49,7 +49,7 @@ function runProgram(){
     return tempObj
   }
   var pauser = 1;               //Pauser works with the newFrame function, when it's set to 1, the game pauses, when its set to 0, the game resumes. Its not in the Constant Variables section because its not a constant variable, just a regular variable.
-  var stopcriminalscum = 0;     //stopcriminalscum stops criminals from reversing the snake by exploiting 2 keyboard buttons. The variable only gets set to 0 on the next frame, and the function sets it to 1 every time it runs, so the function can only run once per frame, this does not allow 2 key presses in 1 frame.
+  var stopCriminalScum = 0;     //stopcriminalscum stops criminals from reversing the snake by exploiting 2 keyboard buttons. The variable only gets set to 0 on the next frame, and the function sets it to 1 every time it runs, so the function can only run once per frame, this does not allow 2 key presses in 1 frame.
   var lunatic = 0;              //If lunatic is set to 1, then hard mode is activated, causing the bullet functions to exist and be used. in case you were wondering, yes, "Snake Project" is a reference to a bulletheck game. 
   var badapple = 0;             //For bad apple mode, at first its set to 1, then it changes when the snake collects the apple.
   var bulletpattern1            //Have to set these variables up here otherwise the function to clear the bulletpattern intervals would not work
@@ -70,7 +70,7 @@ function runProgram(){
         updateSnakeBody();
         updateGameItems();
         border();
-        stopcriminalscum = 0
+        stopCriminalScum = 0
     }
     //for lunatic/snake project mode, calls bullet-related functions that need to be constantly updated, doesn't get called if snake project difficulty isn't selected.
     if (lunatic === 1) {
@@ -101,7 +101,6 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-
   
   function endGame() {
     // stop the interval timer
@@ -123,7 +122,7 @@ function runProgram(){
   }
   //the function below handles key down events. When you press W it checks to see if the snake is moving along the y axis and if it isn't the snake stops moving on the x axis and starts moving upward.
   function handleKeyDown(event) {
-    if (stopcriminalscum === 0) {
+    if (stopCriminalScum === 0) {
         if (event.which === KEY.W) {
             if (snakeHead.speedY === 0) {
                 stopcriminalscum = 1
@@ -169,43 +168,14 @@ function runProgram(){
         endGame()
     }
   }
-  //This function handles the title screen, it works with pauser to turn it off and on.
-  function titleScreen() {
-    $(".remove").hide()
-    pauser = 0;
-    moveApple();
-  }
-  //This function below handles the title screen but sets the game to lunatic difficulty. Is triggered upon clicking the "Snake Project" button.
-  function titleScreen2() {
-    $(".remove").hide();
-    pauser = 0;
-    lunatic = 1;
-    moveApple();
-    randomPatternInterval = setInterval(randomPattern, 20000);   //This would be in one time setup, but i didn't want bullets flying at you if you just sat on the title screen.
-  }
   //This function handles collisions for apple-snake and snakehead-snakebody. I had to set I to 2 for the snake collisions otherwise you would die upon touching the first apple.
     function handleCollisions() {
       if ((snakeHead.x === apple.x) && (snakeHead.y === apple.y)) {
         snakeHead.score += 1;
         createNewSnake();
         moveApple();
-        //the code below in the if statements is for bad apple mode, whenever the snake grabs the apple everything black turns white, and everything white turns black. (this is a reference to something called "bad apple" with a similar status to the "can it run doom?" meme)
-        if (badapple === 1) {
-            $('.badapple1').css("background-color", "black");
-            $('.badapple2').css("background-color", "white");
-            $('#apple').attr('src', 'Images/BlackApple.png');
-            $('#score').css('color', 'black');
-            $('#board').css('border', "1px solid black");
-            badapple = 2
-        }
-        else if (badapple === 2) {
-            $('.badapple1').css("background-color", "white");
-            $('.badapple2').css("background-color", "black");
-            $('#apple').attr('src', 'Images/WhiteApple.png');
-            $('#score').css('color', 'white');
-            $('#board').css('border', "1px solid white");
-            badapple = 1
-        }
+        
+        badAppleColorHandler()
       }
       //the code below checks if the snake head touches the snake body. 
       for (var i = 2; i < snakeArray.length; i++) {
@@ -271,6 +241,61 @@ function runProgram(){
             return false;
         }
     }
+    //the function below is for bad apple mode, whenever the snake grabs the apple everything black turns white, and everything white turns black. (this is a reference to something called "bad apple" with a similar status to the "can it run doom?" meme)
+    function badAppleColorHandler() {
+        if (badapple === 1) {
+            $('.badapple1').css("background-color", "black");
+            $('.badapple2').css("background-color", "white");
+            $('#apple').attr('src', 'Images/BlackApple.png');
+            $('#score').css('color', 'black');
+            $('#board').css('border', "1px solid black");
+            badapple = 2
+        }
+        else if (badapple === 2) {
+            $('.badapple1').css("background-color", "white");
+            $('.badapple2').css("background-color", "black");
+            $('#apple').attr('src', 'Images/WhiteApple.png');
+            $('#score').css('color', 'white');
+            $('#board').css('border', "1px solid white");
+            badapple = 1
+        }
+    }
+      //function below handles the player clicking the bad apple mode button.
+    function badAppleHandler() {
+        if (badapple === 0) {
+            $('#badappletext').text('Bad Apple Mode: ON') //can it play bad apple? yes but actually no, but it can change colors
+            badapple = 1
+        }
+        else if (badapple === 1) {
+            $('#badappletext').text('Bad Apple Mode: OFF') //can it run doom? no
+            badapple = 0
+      }
+  }
+    //This function handles the title screen, it works with pauser to turn it off and on.
+    function titleScreen() {
+        $(".remove").hide()
+        pauser = 0;
+        moveApple();
+    }
+    //This function below handles the title screen but sets the game to lunatic difficulty. Is triggered upon clicking the "Snake Project" button.
+    function titleScreen2() {
+        $(".remove").hide();
+        pauser = 0;
+        lunatic = 1;
+        moveApple();
+        randomPatternInterval = setInterval(randomPattern, 20000);   //This would be in one time setup, but i didn't want bullets flying at you if you just sat on the title screen.
+        //Code below is for presentation, don't need to be waiting 15 seconds for a random bullet pattern that I may of already shown.
+        
+        // bulletpattern1 = setInterval(bulletwave1, 1500);
+        
+        //  bulletpattern2 = setInterval(bulletwave2, 4000);
+        
+        //  bulletpattern3 = setInterval(bulletwave3, 5000);
+
+          bulletwave4();
+        
+        setTimeout(clearBulletIntervals, 15000);
+  }
     //below is code for "lunatic" difficulty and a little extra at the bottom.
     //Gets pretty messy I wasn't sure if creating one factory function type thing would work for 4 different bullet patterns so instead I made seperate ones for each bullet type.
     //Below are the 2 functions for bullet type 1, Long blue lines that go straight down
@@ -352,17 +377,21 @@ function runProgram(){
     //There are snake-sized holes between the bullets in each wave.
     function bulletwave3() {
         for (var i = 0; i <= 440; i += 40) {
+            //top left top of board
             if (i < 220) {
                 setTimeout(createNewBullet2, i * 10, i, -30, 0, 10);
             }
+            //top left side of board
             else if (i > 220) {
                 setTimeout(createNewBullet2, i * 10, 470, i, -10, 0);
             }
         }
         for (var i = 440; i >= 0; i -= 40) {
+            //bottom right bottom of board
             if (i > 220) {
                 setTimeout(createNewBullet2, 4400 - i * 10, i, 470, 0, -10);
             }
+            //bottom right side of board
             if (i < 220) {
                 setTimeout(createNewBullet2, 4400 - i * 10, -30, i, 10, 0);
             }
@@ -385,18 +414,25 @@ function runProgram(){
     function bulletwave4helper(amount) {
         bullets[bullets.length - 1 - amount].speedX = 5
         bullets[bullets.length - 1 - amount].speedY = 5
+        
         bullets[bullets.length - 2 - amount].speedX = -5
         bullets[bullets.length - 2 - amount].speedY = 5
+        
         bullets[bullets.length - 3 - amount].speedX = 5
         bullets[bullets.length - 3 - amount].speedY = -5
+        
         bullets[bullets.length - 4 - amount].speedX = -5
         bullets[bullets.length - 4 - amount].speedY = -5
+        
         bullets[bullets.length - 5 - amount].speedX = 0
         bullets[bullets.length - 5 - amount].speedY = -5
+        
         bullets[bullets.length - 6 - amount].speedX = 5
         bullets[bullets.length - 6 - amount].speedY = 0
+        
         bullets[bullets.length - 7 - amount].speedX = -5
         bullets[bullets.length - 7 - amount].speedY = 0
+        
         bullets[bullets.length - 8 - amount].speedX = 0
         bullets[bullets.length - 8 - amount].speedY = 5
     }
@@ -464,17 +500,6 @@ function runProgram(){
   function handleSnakeBulletCollide() {
       for (var i = 0; i < bullets.length; i++) {
           doCollide(snakeHead, bullets[i]);
-      }
-  }
-  //function below handles the player clicking the bad apple mode button.
-  function badAppleHandler() {
-      if (badapple === 0) {
-          $('#badappletext').text('Bad Apple Mode: ON') //can it play bad apple? yes but actually no, but it can change colors
-          badapple = 1
-      }
-      else if (badapple === 1) {
-          $('#badappletext').text('Bad Apple Mode: OFF') //can it run doom? no
-          badapple = 0
       }
   }
 }
