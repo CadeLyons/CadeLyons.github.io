@@ -104,3 +104,5 @@ dist
 .*
 
 *.code-workspace
+
+workspace.code-workspace
