@@ -20,7 +20,7 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-
+_.identity = function(value) { return value};
 
 
 /** _.indexOf
@@ -37,7 +37,16 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "c") -> 2
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
-
+_.indexOf = function(array, value) {
+    for (var i = 0; i < array.length; i++) {
+        var ArrNum = -1;
+        if(array[i] === value) {
+            var ArrNum = i;
+            return ArrNum;
+        } 
+    }  
+    return ArrNum;
+};
 
 
 /** _.contains
@@ -53,8 +62,20 @@ var _ = {};
 * Examples:
 *   _.contains([1,"two", 3.14], "two") -> true
 */
-
-
+_.contains = function(array, value) {
+    for (var i = 0; i < array.length; i++) {
+        debugger;
+        if(array[i] === value) {
+            var isTrue = 1;
+        } 
+    }  
+    if(isTrue === 1) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 /** _.each
 * Arguments:
@@ -68,7 +89,11 @@ var _ = {};
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
-
+_.each = function(coll, func) {
+    for (var i = 0; i < coll.length; i++) {
+        func(coll[i], i, coll);
+    }
+}
 
 
 /** _.filter
@@ -86,7 +111,15 @@ var _ = {};
 * Challenge:
 *   use _.each in your implementation
 */
-
+_.filter = function(array, func) {
+    var array2 = []
+    for (var i = 0; i < array.length; i++) {
+        if (func(array[i], i, array) === true) {
+            array2.push(array[i])
+        }
+    }
+    return array2
+}
 
 
 /** _.reject
@@ -101,7 +134,15 @@ var _ = {};
 * Examples:
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
-
+_.reject = function(array, func) {
+    var array2 = []
+    for (var i = 0; i < array.length; i++) {
+        if (func(array[i], i, array) === false) {
+            array2.push(array[i])
+        }
+    }
+    return array2
+}
 
 
 /** _.map
@@ -117,7 +158,13 @@ var _ = {};
 * Examples:
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
-
+_.map = function(coll, func) {
+    var array2 = []
+    for (var i = 0; i < coll.length; i++) {
+        array2[i] = func(coll[i], i, coll);
+    }
+    return array2;
+}
 
 
 //////////////////////////////////////////////////////////////////////
