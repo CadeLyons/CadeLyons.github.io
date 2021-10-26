@@ -8,15 +8,15 @@ var Gpio = onoff.Gpio,
 interval = setInterval(function () {
   for (i = 0, i < 4; i++;) {
     if (i % 2 === 0) {
-      setTimeout(led1.write(1, function() {
+      setTimeout(function () {led1.write(1, function() {
         console.log("Changed LED 1 state to: " + 1);
-      }), 250 * i);
+      })}, 250 * i);
     }
     else {
-      led2.write(1, function() {
-        console.log("Changed LED 2 state to: " + 1);
-      });
-    } 
+      setTimeout(function () {led1.write(1, function() {
+        console.log("Changed LED 1 state to: " + 1);
+      })}, 250 * i);
+    }
   }
 }, 1001);
 
