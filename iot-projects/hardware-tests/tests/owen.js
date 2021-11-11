@@ -6,19 +6,30 @@ var Gpio = onoff.Gpio,
   interval;
 
 interval = setInterval(function () {
-  for (i = 0, i < 4; i++;) {
+  for (let i = 0; i < 4; i++) {
     if (i % 2 === 0) {
-      setTimeout(function () {led1.write(1, function() {
-        console.log("Changed LED 1 state to: " + 1);
-      })}, 250 * i);
+      setTimeout(function () {
+	led1.write(1, function() {
+        	console.log("Changed LED 1 state to: 1");
+      	})
+	led2.write(0, function() {
+        	console.log("Changed LED 2 state to: 0");
+      	})
+      }, 150 * i);
     }
-    else {
-      setTimeout(function () {led1.write(1, function() {
-        console.log("Changed LED 1 state to: " + 1);
-      })}, 250 * i);
+    else if (i % 2 != 0) {
+      setTimeout(function () {
+	led2.write(1, function() {
+        	console.log("Changed LED 2 state to: 1");
+        });
+	led1.write(0, function() {
+		console.log("Changed LED 1 state to: 0");
+	});
+      }, 150 * i);
+      
     }
   }
-}, 1001);
+}, 600);
 
 process.on('SIGINT', function () {
   clearInterval(interval);
@@ -29,4 +40,3 @@ process.on('SIGINT', function () {
   console.log('Bye, bye!');
   process.exit();
 });
-
