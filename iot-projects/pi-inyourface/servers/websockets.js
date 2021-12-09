@@ -9,7 +9,15 @@ exports.listen = function (server) {
 	console.log("WebSocket server started");
 	wss.on('connection', function (ws, req) {
 		// TODO 3: Construct a callback for handling client subscription requests
-		
+		var url = req.url;
+		var selectedResource = selectResource(url);
+		if (selectedResource === false) {
+		        console.log("error invalid url");
+		        return;
+		};
+		utils.monitor(selectedResource, refreshRate, function(changes) {
+                        ws.send(JSON.stringify(changes));
+                });
 	});
 };
 

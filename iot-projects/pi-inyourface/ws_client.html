@@ -63,7 +63,19 @@
 
 		function connect(url, updateElement) {
 			// TODO 4: Create new WebSocket client connections
-			
+			var socket = new WebSocket(url);
+                        socket.onopen = function (event) {
+                                console.log("OPENED CONNECTION");
+                                $(updateElement).html("<h4>Awaiting update<h4>");
+                        };
+                        socket.onmessage = function (event) {
+                                let result = JSON.parse(event.data);
+                                $(updateElement).html(result.value);
+                        }
+                        socket.onerror = function (event) {
+                                console.log("Wee Woo Wee Woo error alert wee woo wee woo");
+                                $(updateElement).html("<h4>A wild error appeared<h4>");
+                        };
 		}
 	});
 
