@@ -18,14 +18,26 @@ module.exports = function() {
     			]}
 		]};
 		if (req.accepts('html')){ 
-		res.send(json2html.transform(req.result, transform));
-		return;
+		        console.log("sending html");
+                        let response = json2html.transform(req.result, transform);
+                        let links = generateLinks(req.links);
+
+                        res.send(response + links);
+		        //res.send(json2html.transform(req.result, transform));
+		        return;
 		}
 		else if (req.result) {
-		res.send(req.result);
+		        res.send(req.result);
 		}
 		else {
-		 next();
+		        next();
 		}
-	};
+		function generateLinks(linkList) { 
+		        var html = "<h4>Links</h4>"
+		        for (var link in linkList) {
+		                var html = html + "<a href="+linkList[link]+">"+link+"</a><br>";
+		        }
+		        return html;
+		}
+	};	
 };
